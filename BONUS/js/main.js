@@ -24,37 +24,66 @@ const images = [
     }
 ];
 
+// seleziono l'elemento che contiene gli items
 const itemsContainer = document.querySelector(".items")
+// seleziono l'elemento che contiene le thumbs e i pulsanti prev e next
+const thumbsContainer = document.querySelector(".thumbs")
+
 const displayedImages = images.map((img, i)=>{
     // creo il div con classe item che conterrà immagine titolo e testo
-    const parent = document.createElement("div");
+    const item = document.createElement("div");
     // controllo se sto creando la prima immagine 
     if (i === 0){
         // se sto creando la prima immagine la imposto ad active
-        parent.className = "item active";
+        item.className = "item active";
     } else {
-        parent.className = "item";
+        item.className = "item";
     }
-    // parent.dataset.index = i;
+    // item.dataset.index = i;
 
     // creo l'elemnto dell'immagine
     const imageElement = document.createElement("img");
     imageElement.src = img.image;
-    parent.appendChild(imageElement);
+    item.appendChild(imageElement);
+
     // creo l'elemento del titolo
     const titleElement = document.createElement("h3");
     titleElement.innerText = img.title;
-    parent.appendChild(titleElement);
+    item.appendChild(titleElement);
+    
     // creo l'elemento del testo descrittivo
     const textElement = document.createElement("p");
     textElement.innerText = img.text;
-    parent.appendChild(textElement);
-    itemsContainer.appendChild(parent)
+    item.appendChild(textElement);
+    
+    // inserisco l'item nel DOM
+    itemsContainer.appendChild(item);
+    
+    
+    // creo la THUMB
+    const thumb = document.createElement("div");
+    if (i === 0){
+        // se sto creando la prima immagine la imposto ad active
+        thumb.className = "thumb active";
+    } else {
+        thumb.className = "thumb";
+    }
+    
+    // creo l'immagine da inserire nella THUMB
+    const thumbImage = document.createElement("img");
+    thumbImage.src = img.image;
+    
+    // inserisco l'immagine nella thumb e la thumb dentro il thumbsContainer
+    thumb.appendChild(thumbImage)
+    thumbsContainer.appendChild(thumb)
+
+
     return {
         image: img.image,
         title: img.title,
         text: img.text,
-        item: parent
+        item: item,
+        thumb: thumb
     }
 })
 
@@ -66,7 +95,7 @@ const displayedImages = images.map((img, i)=>{
 
 let currentPosition = 0;
 // aggiungo l'event listner per il click
-itemsContainer.addEventListener("click", clickHandeler)
+thumbsContainer.addEventListener("click", clickHandeler)
 
 // definisco la funzione che gestirà la logica del click
 function clickHandeler(e){
@@ -100,6 +129,11 @@ function moveByOneSlide(direction){
 
 // definisco la funzione che cambia le slide
 function switchSlide(prevIndex, nextIndex){
+    // disattivo la precedente immagine
     displayedImages[prevIndex].item.classList.toggle("active");
+    displayedImages[prevIndex].thumb.classList.toggle("active");
+    
+    // attivo la successiva immagine
     displayedImages[nextIndex].item.classList.toggle("active");
+    displayedImages[nextIndex].thumb.classList.toggle("active");
 }
