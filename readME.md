@@ -28,3 +28,6 @@ penso che la seconda sia la soluzione migliore perchè mi permetterà di animare
     - se l'elemento cliccato ha la classe:
       - prev passo all'immagine precedente
       - next passo all'immagine successiva
+    - definisco una funzione per gestire la logica di selezione dell'indice da visualizzare
+    - definisco un funzione per gestire lo switch delle slide
+- 
