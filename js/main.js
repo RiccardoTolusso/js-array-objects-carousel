@@ -1,4 +1,4 @@
-console.log("ciao")
+'use strict'
 
 const images = [
     {
@@ -24,4 +24,36 @@ const images = [
     }
 ];
 
+const itemsContainer = document.querySelector(".items")
+const displayedImages = images.map((img, i)=>{
+    // creo il div con classe item che conterrà immagine titolo e testo
+    const parent = document.createElement("div");
+    if (i === 0){
+        parent.className = "item active";
+    } else {
+        parent.className = "item";
+    }
+    parent.dataset.index = i;
+    // creo l'elemnto dell'immagine
+    const imageElement = document.createElement("img");
+    imageElement.src = img.image;
+    parent.appendChild(imageElement);
+    // creo l'elemento del titolo
+    const titleElement = document.createElement("h3");
+    titleElement.innerText = img.title;
+    parent.appendChild(titleElement);
+    // creo l'elemento del testo descrittivo
+    const textElement = document.createElement("p");
+    textElement.innerText = img.text;
+    parent.appendChild(textElement);
+    itemsContainer.appendChild(parent)
+    return {
+        image: img.image,
+        title: img.title,
+        text: img.text,
+        item: parent
+    }
+})
+
+console.log(displayedImages)
 console.log(images)

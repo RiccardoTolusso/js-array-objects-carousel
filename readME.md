@@ -22,6 +22,6 @@ penso che la seconda sia la soluzione migliore perchè mi permetterà di animare
 1. Ora rimuoviamo i contenuti statici e usiamo l’array di oggetti letterali per popolare dinamicamente il carosello.
    - itero sugli oggetti del mio array con map per generare un nuovo array di oggetti
    - per ogni oggetto che trovo creo un nuovo oggetto che contiene 1 nuovo parametro
-   - domItem che contiene l'elemento con la classe item che vado a generare che conterrà l'elemento del dom
+   - item che contiene l'elemento con la classe item che vado a generare che conterrà l'elemento del dom
 2. Al click dell'utente sulle frecce , l'immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo.
 
