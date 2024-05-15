@@ -30,4 +30,7 @@ penso che la seconda sia la soluzione migliore perchè mi permetterà di animare
       - next passo all'immagine successiva
     - definisco una funzione per gestire la logica di selezione dell'indice da visualizzare
     - definisco un funzione per gestire lo switch delle slide
-- 
+
+**Milestone 2:**
+Aggiungere il ciclo infinito del carosello. Ovvero se la miniatura attiva è la prima e l'utente clicca la freccia verso l'alto, la miniatura che deve attivarsi sarà l'ultima e viceversa per l'ultima miniatura se l'utente clicca la freccia verso il basso.
+    - per come ho impostato la mia logica della milestone 1 mi basta semplicemente modificare i valori che assegno a nextPosition quando nextPosition ha valore < 0 o valore > della lunghezza del mio array displayedImages

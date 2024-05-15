@@ -88,9 +88,9 @@ function moveByOneSlide(direction){
     let nextPosition = currentPosition + direction
     if (nextPosition < 0){
         // se sono in posizione 0 e cerco di scorrere all'indietro
-        nextPosition = 0;
-    } else if (nextPosition >= displayedImages.length){
         nextPosition = displayedImages.length - 1;
+    } else if (nextPosition >= displayedImages.length){
+        nextPosition = 0;
     }
     switchSlide(currentPosition, nextPosition);
     currentPosition = nextPosition;
