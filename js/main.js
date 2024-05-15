@@ -28,12 +28,15 @@ const itemsContainer = document.querySelector(".items")
 const displayedImages = images.map((img, i)=>{
     // creo il div con classe item che conterrà immagine titolo e testo
     const parent = document.createElement("div");
+    // controllo se sto creando la prima immagine 
     if (i === 0){
+        // se sto creando la prima immagine la imposto ad active
         parent.className = "item active";
     } else {
         parent.className = "item";
     }
-    parent.dataset.index = i;
+    // parent.dataset.index = i;
+
     // creo l'elemnto dell'immagine
     const imageElement = document.createElement("img");
     imageElement.src = img.image;
@@ -55,5 +58,48 @@ const displayedImages = images.map((img, i)=>{
     }
 })
 
-console.log(displayedImages)
-console.log(images)
+// console.log(displayedImages);
+// console.log(images);
+
+// definisco una variabile currentPosition che conterrà la posizione dell'elemento che sto visualizzando
+
+
+let currentPosition = 0;
+// aggiungo l'event listner per il click
+itemsContainer.addEventListener("click", clickHandeler)
+
+// definisco la funzione che gestirà la logica del click
+function clickHandeler(e){
+    switch (e.target.className){
+        case "next":
+            // passo alla slide successiva
+            moveByOneSlide(1)
+            break
+        case "prev":
+            // passo alla slide precedente
+            moveByOneSlide(-1)
+            break
+    }
+}
+
+// definisco la funzione che gestisce lo spostamento delle slide a quelle con indice immediatamente precedente o successivo
+function moveByOneSlide(direction){
+    // direction corrisponde a + o - 1 in base a che voglia andare alla slide successiva o precedente
+    let nextPosition = currentPosition + direction
+    if (nextPosition < 0){
+        // se sono in posizione 0 e cerco di scorrere all'indietro
+        nextPosition = 0;
+    } else if (nextPosition >= displayedImages.length){
+        nextPosition = displayedImages.length - 1;
+    }
+    switchSlide(currentPosition, nextPosition);
+    currentPosition = nextPosition;
+}
+
+
+
+// definisco la funzione che cambia le slide
+function switchSlide(prevIndex, nextIndex){
+    displayedImages[prevIndex].item.classList.toggle("active");
+    displayedImages[nextIndex].item.classList.toggle("active");
+}

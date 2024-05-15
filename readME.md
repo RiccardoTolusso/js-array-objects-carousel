@@ -24,4 +24,7 @@ penso che la seconda sia la soluzione migliore perchè mi permetterà di animare
    - per ogni oggetto che trovo creo un nuovo oggetto che contiene 1 nuovo parametro
    - item che contiene l'elemento con la classe item che vado a generare che conterrà l'elemento del dom
 2. Al click dell'utente sulle frecce , l'immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo.
-
+    - creo un event listner per il click su items
+    - se l'elemento cliccato ha la classe:
+      - prev passo all'immagine precedente
+      - next passo all'immagine successiva
