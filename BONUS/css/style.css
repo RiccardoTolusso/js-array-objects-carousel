@@ -10,6 +10,7 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .items {
@@ -69,6 +70,10 @@
 
 .next {
     bottom: 0;
+}
+
+.prev {
+    top: 0;
 }
 
 .prev::after {
