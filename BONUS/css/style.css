@@ -112,6 +112,7 @@
 
 .thumb {
     height: calc((300px) / 5);
+    width: 160px;
     opacity: 0.5;
 }
 

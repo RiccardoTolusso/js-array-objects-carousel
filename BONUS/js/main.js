@@ -91,22 +91,48 @@ const displayedImages = images.map((img, i)=>{
 // console.log(images);
 
 // definisco una variabile currentPosition che conterrà la posizione dell'elemento che sto visualizzando
-
-
 let currentPosition = 0;
+
+let seconds = 3
+let activeInterval 
+
+// se è 1 le immaggini scorrono nel verso normale
+// se è -1 le immagini scorrono all'incontrario
+let moveDirection = 1
+
+function startAutoplay(){
+    activeInterval = setInterval(() => moveByOneSlide(moveDirection), seconds * 1000)
+}
+// faccio partire lo scorrimento automatico delle slide
+startAutoplay()
+
+// definisco una funzione che resetta l'intervallo
+function resetAutoplay(){
+    clearInterval(activeInterval);
+
+    // aggiungo un delay per permettere all'utente di leggere il testo
+    setTimeout(startAutoplay, 2 * seconds * 1000)
+}
+
 // aggiungo l'event listner per il click
-thumbsContainer.addEventListener("click", clickHandeler)
+thumbsContainer.addEventListener("click", clickHandler)
 
 // definisco la funzione che gestirà la logica del click
-function clickHandeler(e){
+function clickHandler(e){
     switch (e.target.className){
         case "next":
             // passo alla slide successiva
             moveByOneSlide(1)
+            
+            // faccio ripartire l'intervallo per evitare che lo switch si accavalli
+            resetAutoplay()
             break
         case "prev":
             // passo alla slide precedente
             moveByOneSlide(-1)
+            
+            // faccio ripartire l'intervallo per evitare che lo switch si accavalli
+            resetAutoplay()
             break
     }
 }
