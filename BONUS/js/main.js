@@ -72,7 +72,7 @@ const displayedImages = images.map((img, i)=>{
     // creo l'immagine da inserire nella THUMB
     const thumbImage = document.createElement("img");
     thumbImage.src = img.image;
-    
+    thumbImage.dataset.index = i;
     // inserisco l'immagine nella thumb e la thumb dentro il thumbsContainer
     thumb.appendChild(thumbImage)
     thumbsContainer.appendChild(thumb)
@@ -94,14 +94,16 @@ const displayedImages = images.map((img, i)=>{
 let currentPosition = 0;
 
 let seconds = 3
-let activeInterval 
-
+let activeInterval = null
 // se è 1 le immaggini scorrono nel verso normale
 // se è -1 le immagini scorrono all'incontrario
 let moveDirection = 1
 
 function startAutoplay(){
-    activeInterval = setInterval(() => moveByOneSlide(moveDirection), seconds * 1000)
+    // se non c'è già un intervallo attivo allora attivo l'intervallo
+    if (activeInterval === null){
+        activeInterval = setInterval(() => moveToSlide(currentPosition+1), seconds * 1000)
+    }
 }
 // faccio partire lo scorrimento automatico delle slide
 startAutoplay()
@@ -109,7 +111,8 @@ startAutoplay()
 // definisco una funzione che resetta l'intervallo
 function resetAutoplay(){
     clearInterval(activeInterval);
-
+    // imposto active interval a null per dire che non ci sono intervalli attivi al momento
+    activeInterval = null;
     // aggiungo un delay per permettere all'utente di leggere il testo
     setTimeout(startAutoplay, 2 * seconds * 1000)
 }
@@ -119,28 +122,29 @@ thumbsContainer.addEventListener("click", clickHandler)
 
 // definisco la funzione che gestirà la logica del click
 function clickHandler(e){
-    switch (e.target.className){
-        case "next":
+    switch (true){
+        case e.target.className === "next":
             // passo alla slide successiva
-            moveByOneSlide(1)
+            moveToSlide(currentPosition+1)
             
             // faccio ripartire l'intervallo per evitare che lo switch si accavalli
             resetAutoplay()
             break
-        case "prev":
+        case e.target.className === "prev":
             // passo alla slide precedente
-            moveByOneSlide(-1)
+            moveToSlide(currentPosition-1)
             
             // faccio ripartire l'intervallo per evitare che lo switch si accavalli
             resetAutoplay()
             break
+        case e.target.parentElement.classList.contains("thumb"):
+            moveToSlide(e.target.dataset.index)
+            resetAutoplay()
     }
 }
 
 // definisco la funzione che gestisce lo spostamento delle slide a quelle con indice immediatamente precedente o successivo
-function moveByOneSlide(direction){
-    // direction corrisponde a + o - 1 in base a che voglia andare alla slide successiva o precedente
-    let nextPosition = currentPosition + direction
+function moveToSlide(nextPosition){
     if (nextPosition < 0){
         // se sono in posizione 0 e cerco di scorrere all'indietro
         nextPosition = displayedImages.length - 1;
